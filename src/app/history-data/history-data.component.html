@@ -1,0 +1,78 @@
+<div class="container" style="border-width: 1em;" *ngIf="showhistory">
+    <div class="accordion" id="accordionExampleouter">
+      <div class="card">
+        <div class="card-header" id="headingouter">
+	        <h5 class="mb-0">
+            <button class="btn btn-link dropdown-toggle" type="button"  data-toggle="collapse" data-target="#collapsehistory"  aria-expanded="true" aria-controls="collapseouter">
+              History
+            </button>
+          </h5>
+        </div>
+	        <div id="collapsehistory" class="collapse" aria-labelledby="headingouter" data-parent="#accordionExampleouter">
+            <div class="card-body">
+          	<div class="container" style="border-width: 1em;">
+              <div class="accordion" id="accordionExample">
+                <div class="card" *ngFor="let district of districtwisedata; let i = index">
+                  <div class="card-header" id="headingOne-{{i}}">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link dropdown-toggle" type="button"  data-toggle="collapse" attr.data-target="#collapse-{{i}}"  aria-expanded="true" aria-controls="collapseOne">
+                        {{district.district}} - Status on {{district.date}}
+                      </button>
+                    </h5>
+                  </div>
+              
+                  <div attr.id="collapse-{{i}}" class="collapse"  aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                    
+                      <div class="container">
+                        
+                        <p></p>            
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Category</th>
+                              <th>Count</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Discharged from home isolation</td>
+                              <td>{{district.peopleDischargedFromIsolation}}</td>
+                            </tr>
+                            <tr>
+                              <td>Hospitalized today</td>
+                              <td>{{district.peoplesHospitalisedToday}}</td>
+                            </tr>
+                            <tr>
+                              <td>Under home isolation as on {{district.date}}</td>
+                              <td>{{district.peopleUnderIsolation}}</td>
+                            </tr>
+                            <tr>
+                              <td>Under observation as on {{district.date}}</td>
+                              <td>{{district.peopleUnderObservation}}</td>
+                            </tr>
+                            <tr>
+                              <td>Positive cases admitted</td>
+                              <td>{{district.positiveCasesAdmitted}}</td>
+                            </tr>
+                            <tr>
+                              <td>Hospitalized with symptoms</td>
+                              <td>{{district.symptomaticCasesAdmitted}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+                
+              
+              </div>       
+            </div></div>
+        </div>
+	 </div>
+      
+     
+    </div>       
+  </div>

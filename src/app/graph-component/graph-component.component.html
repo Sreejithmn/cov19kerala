@@ -1,0 +1,30 @@
+<div class="container" style="border-width: 1em;" *ngIf="showhistory">
+    <div class="accordion" id="accordioncharts">
+      <div class="card">
+        <div class="card-header" id="headingchartsouter">
+	        <h5 class="mb-0">
+            <button #accordionref class="btn btn-link dropdown-toggle" type="button"  data-toggle="collapse" data-target="#collapsecharts"  aria-expanded="true" aria-controls="collapseouter">
+              Charts
+            </button>
+          </h5>
+        </div>
+	        <div id="collapsecharts" class="collapse" aria-labelledby="headingchartsouter" data-parent="#accordioncharts">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <app-chart  [data]="districtwisedata"></app-chart>
+                    </div>
+                   
+                  <div class="row">
+                    <div class="col-sm-6"><div class="container p-3 my-3 border"></div></div>
+                   
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6"><div class="container p-3 my-3 border"></div></div>
+                    
+                  </div>
+        </div>
+	 </div>
+      
+     
+    </div>       
+  </div>

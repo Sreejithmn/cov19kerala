@@ -1,0 +1,26 @@
+
+  <app-header-component></app-header-component>
+ 
+ 
+
+
+    <div class="jumbotron jumbotron-fluid" style="min-height: 700px;background-color: white;">    
+      <div class="row">
+        <div class="col-sm-12">
+        <app-filter-component (goClicked)="getDisplaycondition($event)"></app-filter-component>
+      </div>
+      </div>
+      
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6" style="margin-top:60px">
+        <app-result-component ></app-result-component>
+        </div>
+        <div class="col-sm-6" style="margin-top:60px">
+          <app-history-data   ></app-history-data>
+          <app-graph-component></app-graph-component>
+          </div>
+      </div></div>
+    </div>
+    
+    

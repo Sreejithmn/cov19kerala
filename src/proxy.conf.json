@@ -1,0 +1,10 @@
+{
+    "/api": {
+    "target": "https://covid19-kerala-api.herokuapp.com/api/location",
+    "secure": false,
+    "pathRewrite": {
+    "^/api": ""
+    },
+    "changeOrigin": true 
+    }
+    }
