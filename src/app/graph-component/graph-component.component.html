@@ -9,19 +9,10 @@
           </h5>
         </div>
 	        <div id="collapsecharts" class="collapse" aria-labelledby="headingchartsouter" data-parent="#accordioncharts">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <app-chart  [data]="districtwisedata"></app-chart>
+                <div class="row" *ngFor="let data of labelvalues">
+                    <div class="col-sm-6" >
+                        <app-chart-comp [dataset]="data" ></app-chart-comp>
                     </div>
-                   
-                  <div class="row">
-                    <div class="col-sm-6"><div class="container p-3 my-3 border"></div></div>
-                   
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6"><div class="container p-3 my-3 border"></div></div>
-                    
-                  </div>
         </div>
 	 </div>
       

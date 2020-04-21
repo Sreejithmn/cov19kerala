@@ -13,7 +13,7 @@ import { HistoryDataComponent } from './history-data/history-data.component';
 import { GraphComponentComponent } from './graph-component/graph-component.component';
 //import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ChartsModule } from 'ng2-charts';
-import { ChartComponent } from './graph-component/chart/chart.component';
+import { ChartCompComponent } from './graph-component/chart-comp/chart-comp/chart-comp.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ChartComponent } from './graph-component/chart/chart.component';
     ResultComponentComponent,
     HistoryDataComponent,
     GraphComponentComponent,
-    ChartComponent
+    ChartCompComponent
   ],
   imports: [
     FormsModule,

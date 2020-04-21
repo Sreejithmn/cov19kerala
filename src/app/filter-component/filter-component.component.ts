@@ -2,7 +2,7 @@ import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import {StateList} from '../common/stateListModel';
 import{HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { stringify } from 'querystring';
 import { CountModel } from '../common/countModel';
@@ -24,13 +24,15 @@ export class FilterComponentComponent implements OnInit {
   readonly URL="https://covid19-kerala-api.herokuapp.com/api/location";
   posts:any;
   displayData;
-  @Output() goClicked = new EventEmitter<boolean>();
+  @Output() goClicked = new EventEmitter<boolean>(); 
+  allstates:Observable<StateList[]>;
   constructor(private http:HttpClient,private dataService:DataService) {
 
    }
    
 
-   getPosts():any{
+   getPosts(){
+    let sub = new Subject<any>();
      this.http.get('https://cors-anywhere.herokuapp.com/https://covid19-kerala-api.herokuapp.com/api/location')
      .pipe(map(responseData=>{
       const locArray=[];
@@ -51,13 +53,18 @@ export class FilterComponentComponent implements OnInit {
          state.itemtext=item[0][+i];
          this.dropdownList.push(state);
        }
-       return this.dropdownList;
+       sub.next(this.dropdownList);
+       
      });
-   }
+     return sub.asObservable();
+   };
   
   ngOnInit(): void {
-     this.getPosts();
+     this.allstates = this.getPosts();
      this.getAllLatestData();
+     this.allstates.subscribe(item=>{
+      this.selectedItems=item;
+     })
      
       
     this.dropdownSettings = {  
@@ -104,8 +111,33 @@ export class FilterComponentComponent implements OnInit {
 
   }
 
-  getData(event){
+  getFilteredData(event){
     this.goClicked.emit(true);
-  }
-}
 
+    
+    if(this.selectedItems.length<this.dropdownList.length){
+      let queryparam:string="";
+      for(let i in this.selectedItems){
+        queryparam+='loc='+this.selectedItems[i].itemtext+'&'
+      }
+      this.http.get('https://cors-anywhere.herokuapp.com/https://covid19-kerala-api.herokuapp.com/api/location?'+queryparam)
+    .subscribe(item=>{
+      let response:ResponseModel;
+      let counts:CountModel[]  =[]
+    for(let i in item){
+      for(let j in item[i]){
+      counts.push(new CountModel(i,j,item[i][j].no_of_persons_discharged_from_home_isolation,
+        item[i][j].no_of_persons_hospitalized_today,item[i][j].no_of_persons_under_home_isolation_as_on_today,
+        item[i][j].no_of_persons_under_observation_as_on_today,item[i][j].no_of_positive_cases_admitted,
+        item[i][j].no_of_symptomatic_persons_hospitalized_as_on_today));
+    }
+    response = new ResponseModel(i,'success',counts);
+    this.dataService.sendDataToService(response)
+    break; 
+
+
+    }
+  });
+}
+  }
+} 
